@@ -53,3 +53,7 @@ b.next = c
 
 print_linked_list(a)
 print(print_linked_list(reverse_linked_list(a)))
+
+
+for x in range(10):
+    print(str(x) + '\n')
