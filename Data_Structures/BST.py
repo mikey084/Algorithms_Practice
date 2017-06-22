@@ -60,7 +60,7 @@ class BinarySearchTree:
 
     def traverse(self):
         if self.root:
-            return traverseInOrder(self.root)
+            return self.traverseInOrder(self.root)
 
     def traverseInOrder(self, node):
         if node.leftChild:
@@ -70,6 +70,53 @@ class BinarySearchTree:
 
         if node.rightChild:
             self.traverseInOrder(node.rightChild)
+
+    def remove(self, data):
+        if self.root:
+            self.root = self.removeNode(data, self.root)
+
+    def removeNode(self, data, node):
+        if not node:
+            return node
+
+        if data < node.data:
+            node.leftChild = self.removeNode(data, node.leftChild)
+
+        elif data > node.data:
+            node.rightChild = self.removeNode(data, node.rightChild)
+
+        else:
+            if not node.leftChild and node.rightChild:
+                print("removing leaf node ...")
+                del node
+                return None
+
+            if not self.leftChild:
+                print("removing node with a single right child")
+                tempNode = node.rightChild
+                del node
+                return tempNode
+            elif not self.rightChild:
+                print('removing node with a single left child')
+                tempNode = node.leftChild
+                del node
+                return tempNode
+
+            print("removing Node with two Children")
+            tempNode = self.getPredecessor(node.leftChild)
+            node.data = tempNode.data
+            node.leftChild = self.removeNode(tempNode.data, node.leftChild)
+
+
+    def getPredecessor(self, node):
+        if node.rightChild:
+            return self.getPredecessor(node.rightChild)
+
+        return node
+
+
+
+
 
 
 

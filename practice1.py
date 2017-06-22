@@ -57,3 +57,15 @@ print(print_linked_list(reverse_linked_list(a)))
 
 for x in range(10):
     print(str(x) + '\n')
+
+def put(self, key, data):
+    index = self.hashedFunction(key)
+    #not None it is a collision
+    while self.keys[index] is not None:
+        if self.keys[index] == key:
+            self.values[index] = data #update
+            return
+        index = (index+1) % self.size
+    #insert
+    self.keys[index] = key
+    self.values[index] = data
